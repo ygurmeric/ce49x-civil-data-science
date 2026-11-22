@@ -1,128 +1,76 @@
-# Life Cycle Analysis (LCA) Tool
+# Life Cycle Assessment of Construction Products
 
-## Project Overview
-This LCA tool helps analyze and visualize the environmental impacts of products or processes throughout their entire life cycle. The tool integrates Python programming fundamentals, data science concepts, and environmental science principles to provide comprehensive environmental impact assessment.
+Final project for CE49X Data Science for Civil Engineers, Boğaziçi University, Spring 2025.
 
-## Features
+The project compares the environmental impact of 20 construction products over their life cycle:
+manufacturing, transportation and end of life. For each product it calculates carbon, energy, water
+and waste, and then compares products and materials.
 
-### Data Management
-- Support for multiple data formats (CSV, Excel, JSON)
-- Comprehensive data validation
-- Impact factor database integration
-- Life cycle stage tracking
+## Who did what
 
-### Impact Analysis
-- Carbon footprint calculation
-- Energy consumption analysis
-- Water usage assessment
-- Waste generation tracking
-- End-of-life management analysis
+The instructor gave a starter package with the module layout, the calculation core, a test suite,
+sample data and impact factors. My work on top of it:
 
-### Visualization
-- Impact breakdown by material and life cycle stage
-- Life cycle impact analysis
-- Product comparison using radar charts
-- End-of-life management visualization
-- Impact category correlation analysis
+- **Data validation:** rewrote `src/data_input.py` so that it reports which column or row fails,
+  checks numeric types directly and checks that recycling, landfill and incineration rates add up to 1.
+- **Visualisation:** changed `src/visualization.py` and updated the tests to match.
+- **Analysis:** wrote the full analysis notebook, `notebooks/lca_analysis_final.ipynb`, with
+  impact calculation, product comparison, normalisation and comparison of alternatives.
+- **Results:** made all figures and tables in `results/` and wrote the two reports,
+  `Documentation/LCA_Project_Report.pdf` and `results/LCA_Report.pdf`.
 
-## Installation
+## Main findings
 
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd lca-tool
-```
+![Carbon impact by material](results/impact_breakdown.png)
 
-2. Install dependencies:
+- Steel causes the largest share of carbon, about 34% of the total, then glass at 18% and concrete at 13%.
+- For the same structural role, the engineered wood beam emits about 300 kg CO2e, while the structural
+  steel beam emits about 1,850 kg CO2e. That is roughly six times more.
+- Reinforced concrete has the highest water use and waste of all products, so a material that looks
+  good on carbon is not always good on other impacts. This is why the tool keeps the impact
+  categories separate before normalising them.
+
+All product totals are in `results/total_impact_results.csv`.
+
+## How to run
+
 ```bash
 pip install -r requirements.txt
+pytest                      # 13 tests
+jupyter notebook notebooks/lca_analysis_final.ipynb
 ```
 
-## Usage
-
-### Basic Usage
 ```python
 from src.data_input import DataInput
 from src.calculations import LCACalculator
 from src.visualization import LCAVisualizer
 
-# Load data
 data_input = DataInput()
 product_data = data_input.read_data('data/raw/sample_data.csv')
-impact_factors = data_input.read_impact_factors('data/raw/impact_factors.json')
 
-# Calculate impacts
 calculator = LCACalculator(impact_factors_path='data/raw/impact_factors.json')
 impacts = calculator.calculate_impacts(product_data)
 
-# Visualize results
 visualizer = LCAVisualizer()
 fig = visualizer.plot_impact_breakdown(impacts, 'carbon_impact', 'material_type')
 ```
 
-### Example Notebook
-Check out the example notebook in `notebooks/lca_analysis_example.ipynb` for a comprehensive demonstration of the tool's capabilities.
+## Data structure
 
-## Data Structure
+Product data is a CSV file with one row per product and life cycle stage. The columns are
+`product_id`, `product_name`, `life_cycle_stage`, `material_type`, `quantity_kg`,
+`energy_consumption_kwh`, `transport_distance_km`, `transport_mode`, `waste_generated_kg`,
+`recycling_rate`, `landfill_rate`, `incineration_rate`, `carbon_footprint_kg_co2e` and `water_usage_liters`.
+The three rates are fractions between 0 and 1 and must add up to 1.
 
-### Product Data (CSV)
-The tool expects product data in CSV format with the following columns:
-- `product_id`: Unique identifier for the product
-- `product_name`: Name of the product
-- `life_cycle_stage`: Stage in the life cycle (Manufacturing, Transportation, End-of-Life)
-- `material_type`: Type of material used
-- `quantity_kg`: Quantity in kilograms
-- `energy_consumption_kwh`: Energy consumption in kilowatt-hours
-- `transport_distance_km`: Transportation distance in kilometers
-- `transport_mode`: Mode of transportation
-- `waste_generated_kg`: Waste generated in kilograms
-- `recycling_rate`: Rate of recycling (0-1)
-- `landfill_rate`: Rate of landfill disposal (0-1)
-- `incineration_rate`: Rate of incineration (0-1)
-- `carbon_footprint_kg_co2e`: Carbon footprint in kg CO2e
-- `water_usage_liters`: Water usage in liters
+Impact factors are a JSON file organised by material, then by life cycle stage:
 
-### Impact Factors (JSON)
-Impact factors are stored in JSON format with the following structure:
 ```json
 {
-    "material_name": {
-        "life_cycle_stage": {
-            "carbon_impact": value,
-            "energy_impact": value,
-            "water_impact": value
-        }
+    "steel": {
+        "manufacturing": {"carbon_impact": 1.8, "energy_impact": 20.0, "water_impact": 150.0}
     }
 }
 ```
 
-## Submission
-- **Deadline**: June 13, 2025, 11:59 PM
-- Submit your project by pushing your code to your personal GitHub repository
-- The repository should include:
-  1. Complete code implementation
-  2. Documentation
-  3. Test files
-  4. Sample data and results
-- **Important**: After pushing your code to GitHub, send an email to eyuphan.koc@gmail.com with:
-  - Your name
-  - Your GitHub repository URL
-
-## Grading Rubric
-
-| Category | Excellent (90-100) | Good (80-89) | Fair (70-79) | Needs Improvement (<70) |
-|----------|-------------------|--------------|--------------|------------------------|
-| Code Quality | Well-structured, documented, efficient | Good structure, adequate documentation | Basic structure, minimal documentation | Poor structure, lacking documentation |
-| Functionality | All features implemented, robust | Most features implemented | Basic features implemented | Missing key features |
-| Documentation | Comprehensive, clear, professional | Good coverage, clear | Basic coverage | Inadequate coverage |
-
-## Getting Started
-1. Clone the starter repository
-2. Set up your development environment
-3. Review the requirements and documentation
-4. Start with basic functionality
-5. Incrementally add features
-6. Test thoroughly
-7. Document as you go
-
-Good luck with your project! Remember to start early and commit your changes regularly. 
+The sample data and impact factors are teaching data provided with the course, not measured values.
