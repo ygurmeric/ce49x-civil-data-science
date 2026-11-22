@@ -35,6 +35,9 @@ assignments I worked on, and each section says clearly which part is mine.
 
 The git history goes back to the course and shows the instructor's commits and my own commits with their original dates.
 
+**Use of AI:** the coursework code dates from 2025, as the git history shows. In November 2026 I used
+Claude, an AI assistant made by Anthropic, to clean up this repository and draft the README files.
+
 ## Running the code
 
 ```bash
