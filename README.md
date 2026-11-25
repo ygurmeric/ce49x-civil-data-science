@@ -50,8 +50,16 @@ Each lab script reads its data from `datasets/` with a relative path, so run it 
 
 ## Credits
 
-- Course, starter code and teaching datasets by the CE49X instructor, [@eyuphankoc](https://github.com/eyuphankoc),
-  shared under the MIT License. See [`LICENSE`](LICENSE).
-- The concrete dataset is the Concrete Compressive Strength dataset. Its source is described in
+- Course, starter code and teaching datasets by the CE49X instructor, Eyüphan Koç
+  ([@eyuphankoc](https://github.com/eyuphankoc)), from the public course repository
+  [CE49X-Spring25](https://github.com/eyuphankoc/CE49X-Spring25), shared under the MIT License.
+  See [`LICENSE`](LICENSE).
+- Concrete Compressive Strength dataset by I-Cheng Yeh, from the UCI Machine Learning Repository,
+  licensed under CC BY 4.0. Its source is described in
   [`datasets/concrete_strength/Concrete_Readme.txt`](datasets/concrete_strength/Concrete_Readme.txt).
-- Wind data comes from ERA5 reanalysis.
+  Yeh, I-C. (1998), Modeling of strength of high-performance concrete using artificial neural
+  networks, *Cement and Concrete Research*, 28(12), 1797-1808.
+- Wind data: contains modified Copernicus Climate Change Service information 2025. Neither the
+  European Commission nor ECMWF is responsible for any use that may be made of the Copernicus
+  information or data it contains. Hersbach, H. et al. (2020), The ERA5 global reanalysis,
+  *Quarterly Journal of the Royal Meteorological Society*, 146, 1999-2049.
