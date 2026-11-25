@@ -50,7 +50,7 @@ Each lab script reads its data from `datasets/` with a relative path, so run it 
 
 ## Credits
 
-- Course, starter code and teaching datasets by the CE49X instructor, Eyüphan Koç
+- Course, starter code and teaching datasets by the CE49X instructor, Dr. Eyüphan Koç
   ([@eyuphankoc](https://github.com/eyuphankoc)), from the public course repository
   [CE49X-Spring25](https://github.com/eyuphankoc/CE49X-Spring25), shared under the MIT License.
   See [`LICENSE`](LICENSE).
